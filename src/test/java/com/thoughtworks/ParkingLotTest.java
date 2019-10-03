@@ -22,4 +22,13 @@ public class ParkingLotTest {
         assertFalse(parkingLot.park(new Object()));
 
     }
+
+    @Test
+    void givenParkingLotOfCapacityTwo_whenParkSameObject_thenShouldNotAllow(){
+        ParkingLot parkingLot = new ParkingLot(2);
+        Object objectOne = new Object();
+
+        assertTrue(parkingLot.park(objectOne));
+        assertFalse(parkingLot.park(objectOne));
+    }
 }
