@@ -18,7 +18,6 @@ public class ParkingLot {
         if (isAlreadyParked(object)) {
             throw new ParkingLotException("Object is already parked.");
         }
-
         return parkedObjects.add(object);
     }
 
@@ -28,5 +27,12 @@ public class ParkingLot {
 
     private boolean isFull() {
         return parkedObjects.size() >= capacity;
+    }
+
+    public boolean unPark(Object object) throws ParkingLotException {
+        if(parkedObjects.isEmpty()){
+            throw new ParkingLotException("Parking lot is empty");
+        }
+        return parkedObjects.remove(object);
     }
 }

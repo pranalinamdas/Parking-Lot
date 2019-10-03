@@ -18,7 +18,8 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1);
 
         assertTrue(parkingLot.park(new Object()));
-        assertThrows(ParkingLotException.class,()->parkingLot.park(new Object()));
+        ParkingLotException exception = assertThrows(ParkingLotException.class, () -> parkingLot.park(new Object()));
+        assertEquals("Parking lot is full", exception);
     }
 
     @Test
@@ -27,6 +28,16 @@ public class ParkingLotTest {
         Object objectOne = new Object();
 
         assertTrue(parkingLot.park(objectOne));
-        assertThrows(ParkingLotException.class,()->parkingLot.park(objectOne));
+        ParkingLotException exception = assertThrows(ParkingLotException.class, () -> parkingLot.park(objectOne));
+        assertEquals("Object is already parked", exception);
     }
+
+    @Test
+    void givenParkingLotWithNoParkedObject_WhenUnParkTheObject_ThenShouldNotBeAbleToUnParkTheObject() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        ParkingLotException exception = assertThrows(ParkingLotException.class, () -> parkingLot.unPark(null));
+        assertEquals("Parking lot is empty", exception);
+    }
+
 }

@@ -22,5 +22,4 @@ public class Sanjay {
             System.out.println(e.message());
         }
     }
-
 }
