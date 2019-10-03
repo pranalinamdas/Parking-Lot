@@ -5,16 +5,28 @@ import java.util.List;
 
 public class ParkingLot {
     private final int capacity;
-    private List<Object> parkedObjects=new ArrayList<>();
+    private List<Object> parkedObjects = new ArrayList<>();
 
-    public ParkingLot(int capacity) {
+    protected ParkingLot(int capacity) {
         this.capacity = capacity;
     }
 
-    public boolean park(Object object) {
-        if (parkedObjects.size() < capacity && !parkedObjects.contains(object)) {
-            return parkedObjects.add(object);
+    public boolean park(Object object) throws ParkingLotException {
+        if (isFull()) {
+            throw new ParkingLotException("Parking lot is full.");
         }
-        return false;
+        if (isAlreadyParked(object)) {
+            throw new ParkingLotException("Object is already parked.");
+        }
+
+        return parkedObjects.add(object);
+    }
+
+    private boolean isAlreadyParked(Object object) {
+        return parkedObjects.contains(object);
+    }
+
+    private boolean isFull() {
+        return parkedObjects.size() >= capacity;
     }
 }
