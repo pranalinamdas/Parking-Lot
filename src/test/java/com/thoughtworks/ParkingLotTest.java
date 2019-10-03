@@ -40,4 +40,12 @@ public class ParkingLotTest {
         assertEquals("Parking lot is empty", exception);
     }
 
+    @Test
+    void givenParkingLotWithOneObjectParked_whenUnParkTheObject_thenShouldBeAbleToUnParkTheObject() throws ParkingLotException {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Object object = new Object();
+        parkingLot.park(object);
+
+        assertTrue(parkingLot.unPark(object));
+    }
 }
