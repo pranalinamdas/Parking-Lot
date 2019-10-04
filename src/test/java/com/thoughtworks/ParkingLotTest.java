@@ -100,4 +100,17 @@ class ParkingLotTest {
         assertEquals(1,owner.count);
     }
 
+    @Test
+    void givenParkingLot_WhenParkAndParkAndAgainPark_thenShouldGetCalledTwice() throws AlreadyParkedException, SpaceNotAvailableException, VehicleNotFoundException {
+        DummyOwner owner = new DummyOwner();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
+
+        Object vehicle = new Object();
+
+        parkingLot.park(vehicle);
+        parkingLot.unPark(vehicle);
+        parkingLot.park(vehicle);
+
+        assertEquals(2,owner.count);
+    }
 }
