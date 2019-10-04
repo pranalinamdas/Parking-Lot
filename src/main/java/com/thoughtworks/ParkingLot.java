@@ -6,19 +6,25 @@ import java.util.List;
 public class ParkingLot {
     private final int capacity;
     private List<Object> parkedObjects = new ArrayList<>();
+    private Owner owner;
 
-    protected ParkingLot(int capacity) {
+    protected ParkingLot(int capacity, Owner owner) {
         this.capacity = capacity;
+        this.owner = owner;
     }
 
-    public boolean park(Object object) throws SpaceNotAvailableException, AlreadyParkedException {
+    public void park(Object object) throws SpaceNotAvailableException, AlreadyParkedException {
         if (isFull()) {
             throw new SpaceNotAvailableException();
         }
         if (isAlreadyParked(object)) {
             throw new AlreadyParkedException();
         }
-        return parkedObjects.add(object);
+
+        parkedObjects.add(object);
+        if (parkedObjects.size() == capacity) {
+            owner.inform("Parking lot gets full");
+        }
     }
 
     private boolean isAlreadyParked(Object object) {
@@ -29,12 +35,12 @@ public class ParkingLot {
         return parkedObjects.size() >= capacity;
     }
 
-    public Object unPark(Object object) throws ParkingLotEmptyException, VehicleNotParkedException {
+    public Object unPark(Object object) throws VehicleNotFoundException {
         if (parkedObjects.isEmpty()) {
-            throw new ParkingLotEmptyException();
+            throw new VehicleNotFoundException();
         }
         if (!isAlreadyParked(object)) {
-            throw new VehicleNotParkedException();
+            throw new VehicleNotFoundException();
         }
         return parkedObjects.remove(parkedObjects.indexOf(object));
     }
