@@ -11,12 +11,12 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public boolean park(Object object) throws ParkingLotException {
+    public boolean park(Object object) throws SpaceNotAvailableException, AlreadyParkedException {
         if (isFull()) {
-            throw new ParkingLotException("Parking lot is full.");
+            throw new SpaceNotAvailableException();
         }
         if (isAlreadyParked(object)) {
-            throw new ParkingLotException("Object is already parked.");
+            throw new AlreadyParkedException();
         }
         return parkedObjects.add(object);
     }
@@ -29,10 +29,13 @@ public class ParkingLot {
         return parkedObjects.size() >= capacity;
     }
 
-    public boolean unPark(Object object) throws ParkingLotException {
-        if(parkedObjects.isEmpty()){
-            throw new ParkingLotException("Parking lot is empty");
+    public Object unPark(Object object) throws ParkingLotEmptyException, VehicleNotParkedException {
+        if (parkedObjects.isEmpty()) {
+            throw new ParkingLotEmptyException();
         }
-        return parkedObjects.remove(object);
+        if (!isAlreadyParked(object)) {
+            throw new VehicleNotParkedException();
+        }
+        return parkedObjects.remove(parkedObjects.indexOf(object));
     }
 }
