@@ -69,10 +69,12 @@ class ParkingLotTest {
     class DummyOwner extends Owner {
 
         private String message;
+        int count = 0;
 
         @Override
         void inform(String message) {
             this.message = message;
+            count++;
         }
     }
 
@@ -85,6 +87,17 @@ class ParkingLotTest {
         parkingLot.park(vehicle);
 
         assertEquals("Parking lot gets full", owner.message);
+    }
+
+    @Test
+    void givenParkingLot_whenInformToOwner_thenShouldGetCalledOnce() throws AlreadyParkedException, SpaceNotAvailableException {
+        DummyOwner owner = new DummyOwner();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
+
+        Object vehicle = new Object();
+        parkingLot.park(vehicle);
+
+        assertEquals(1,owner.count);
     }
 
 }
