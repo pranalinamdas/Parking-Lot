@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class ParkingLotTest {
-    DummyOwner owner = new DummyOwner();
-    DummySecurityGuard guard = new DummySecurityGuard();
+    private DummyOwner owner = new DummyOwner();
+    private DummySecurityGuard guard = new DummySecurityGuard();
 
     @Test
     void givenParkingLot_whenParkTheVehicle_thenShouldBeAbleToParkTheVehicle() {
@@ -148,5 +148,18 @@ class ParkingLotTest {
 
         assertEquals(1, guard.spaceIsFullInformed);
         assertEquals(1, owner.spaceIsFullInformed);
+    }
+
+    @Test
+    void givenParkingLotFull_whenUnParkTheVehicle_thenShouldInformSecurityGuarAndOwner() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
+
+        Object vehicle = new Object();
+        parkingLot.park(vehicle);
+
+        parkingLot.unPark(vehicle);
+
+        assertEquals(1, guard.spaceIsAvailableAgainInformed);
+        assertEquals(1, owner.spaceIsAvailableAgainInformed);
     }
 }
