@@ -1,8 +1,17 @@
 package com.thoughtworks;
 
-public interface Owner {
+public class Owner implements Notification {
 
-    void informSpaceIsFull();
+    int spaceIsAvailableAgainInformed = 0;
+    int spaceIsFullInformed = 0;
 
-    void informSpaceIsAvailableAgain();
+    @Override
+    public void informSpaceIsFull() {
+        spaceIsFullInformed++;
+    }
+
+    @Override
+    public void informSpaceIsAvailableAgain() {
+        spaceIsAvailableAgainInformed++;
+    }
 }

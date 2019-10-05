@@ -45,6 +45,7 @@ public class ParkingLot {
         if (!isAlreadyParked(object)) {
             throw new VehicleNotFoundException();
         }
+
         parkedObjects.remove(object);
         if (parkedObjects.size() == capacity - 1) {
             owner.informSpaceIsAvailableAgain();

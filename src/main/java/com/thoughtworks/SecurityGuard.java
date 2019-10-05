@@ -1,8 +1,17 @@
 package com.thoughtworks;
 
-public interface SecurityGuard {
+public class SecurityGuard implements Notification {
 
-    void informSpaceIsFull();
+    int spaceIsAvailableAgainInformed = 0;
+    int spaceIsFullInformed = 0;
 
-    void informSpaceIsAvailableAgain();
+    @Override
+    public void informSpaceIsFull() {
+        spaceIsFullInformed++;
+    }
+
+    @Override
+    public void informSpaceIsAvailableAgain() {
+        spaceIsAvailableAgainInformed++;
+    }
 }

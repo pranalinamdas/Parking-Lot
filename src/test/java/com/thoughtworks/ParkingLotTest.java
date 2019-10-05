@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class ParkingLotTest {
-    private DummyOwner owner = new DummyOwner();
-    private DummySecurityGuard guard = new DummySecurityGuard();
+    private Owner owner = new Owner();
+    private SecurityGuard guard = new SecurityGuard();
 
     @Test
     void givenParkingLot_whenParkTheVehicle_thenShouldBeAbleToParkTheVehicle() {
@@ -140,7 +140,7 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkingLot_whenFull_thenShouldInformSecurityGuard() throws Exception {
+    void givenParkingLot_whenFull_thenShouldInformSecurityGuardAndOwner() throws Exception {
         ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         Object vehicle = new Object();
@@ -148,18 +148,18 @@ class ParkingLotTest {
 
         assertEquals(1, guard.spaceIsFullInformed);
         assertEquals(1, owner.spaceIsFullInformed);
+
     }
 
     @Test
-    void givenParkingLotFull_whenUnParkTheVehicle_thenShouldInformSecurityGuarAndOwner() throws Exception {
+    void givenParkingLotFull_whenUnParkTheVehicle_thenShouldInformSecurityGuardAndOwner() throws Exception {
         ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         Object vehicle = new Object();
         parkingLot.park(vehicle);
-
         parkingLot.unPark(vehicle);
 
-        assertEquals(1, guard.spaceIsAvailableAgainInformed);
         assertEquals(1, owner.spaceIsAvailableAgainInformed);
+        assertEquals(1, guard.spaceIsAvailableAgainInformed);
     }
 }
