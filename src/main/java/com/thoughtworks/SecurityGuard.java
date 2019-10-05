@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public interface Informer {
+public interface SecurityGuard {
 
     void informSpaceIsFull();
 

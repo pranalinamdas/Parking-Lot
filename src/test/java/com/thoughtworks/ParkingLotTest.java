@@ -7,19 +7,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingLotTest {
     DummyOwner owner = new DummyOwner();
+    DummySecurityGuard guard = new DummySecurityGuard();
 
     @Test
-    void givenParkingLotCapacityOne_whenParkTwoVehicle_thenShouldNotBeAbleToParkSecondObject() throws SpaceNotAvailableException, AlreadyParkedException {
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+    void givenParkingLot_whenParkTheVehicle_thenShouldBeAbleToParkTheVehicle() {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
+
+        Object object = new Object();
+        assertDoesNotThrow(()->parkingLot.park(object));
+    }
+
+    @Test
+    void givenParkingLotCapacityOne_whenParkTwoVehicle_thenShouldNotBeAbleToParkSecondObject() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
         parkingLot.park(new Object());
 
         assertThrows(SpaceNotAvailableException.class, () -> parkingLot.park(new Object()));
     }
 
     @Test
-    void givenParkingLotOfCapacityTwo_whenParkSameVehicle_thenShouldNotAllow() throws SpaceNotAvailableException, AlreadyParkedException {
-
-        ParkingLot parkingLot = new ParkingLot(2, owner);
+    void givenParkingLotOfCapacityTwo_whenParkSameVehicle_thenShouldNotAllow() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(2, owner, guard);
 
         Object objectOne = new Object();
         parkingLot.park(objectOne);
@@ -29,14 +37,14 @@ class ParkingLotTest {
 
     @Test
     void givenParkingLotWithNoParkedVehicle_WhenUnParkTheVehicle_ThenShouldNotBeAbleToUnParkTheVehicle() {
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         assertThrows(VehicleNotFoundException.class, () -> parkingLot.unPark(null));
     }
 
     @Test
-    void givenParkingLotWithOneVehicleParked_whenUnParkTheVehicle_thenShouldBeAbleToUnParkTheVehicle() throws VehicleNotFoundException, AlreadyParkedException, SpaceNotAvailableException {
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+    void givenParkingLotWithOneVehicleParked_whenUnParkTheVehicle_thenShouldBeAbleToUnParkTheVehicle() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         Object object = new Object();
         parkingLot.park(object);
@@ -45,8 +53,8 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkingLotWithOneVehicleParked_whenUnParkedNotParkedVehicle_thenShouldThrowException() throws SpaceNotAvailableException, AlreadyParkedException {
-        ParkingLot parkingLot = new ParkingLot(2, owner);
+    void givenParkingLotWithOneVehicleParked_whenUnParkedNotParkedVehicle_thenShouldThrowException() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(2, owner, guard);
 
         Object objectOne = new Object();
         Object objectTwo = new Object();
@@ -57,9 +65,8 @@ class ParkingLotTest {
 
 
     @Test
-    void givenParkingLot_whenFull_thenShouldInformOwner() throws AlreadyParkedException, SpaceNotAvailableException {
-        DummyOwner owner = new DummyOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+    void givenParkingLot_whenFull_thenShouldInformOwner() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         Object vehicle = new Object();
         parkingLot.park(vehicle);
@@ -68,9 +75,8 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkingLotFull_whenInformToOwner_thenShouldGetCalledOnce() throws AlreadyParkedException, SpaceNotAvailableException {
-        DummyOwner owner = new DummyOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+    void givenParkingLotFull_whenInformToOwner_thenShouldGetCalledOnce() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         Object vehicle = new Object();
         parkingLot.park(vehicle);
@@ -79,9 +85,8 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkingLot_WhenParkAndUnParkAndAgainPark_thenShouldGetCalledTwice() throws AlreadyParkedException, SpaceNotAvailableException, VehicleNotFoundException {
-        DummyOwner owner = new DummyOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+    void givenParkingLot_WhenParkAndUnParkAndAgainPark_thenShouldGetCalledTwice() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         Object vehicle = new Object();
 
@@ -95,9 +100,8 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkingLotFull_whenUnParkedTheVehicle_thenOwnerShouldGetInformed() throws AlreadyParkedException, SpaceNotAvailableException, VehicleNotFoundException {
-        DummyOwner owner = new DummyOwner();
-        ParkingLot parkingLot = new ParkingLot(2, owner);
+    void givenParkingLotFull_whenUnParkedTheVehicle_thenOwnerShouldGetInformed() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(2, owner, guard);
 
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
@@ -112,9 +116,8 @@ class ParkingLotTest {
     }
 
     @Test
-    void GivenParkingLotFullWithCapacityFive_whenGetCount_thenShouldGetCountOfInformed() throws AlreadyParkedException, SpaceNotAvailableException, VehicleNotFoundException {
-        DummyOwner owner = new DummyOwner();
-        ParkingLot parkingLot = new ParkingLot(5, owner);
+    void GivenParkingLotFullWithCapacityFive_whenGetCount_thenShouldGetCountOfInformed() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(5, owner, guard);
 
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
@@ -136,4 +139,14 @@ class ParkingLotTest {
         assertEquals(1, owner.spaceIsAvailableAgainInformed);
     }
 
+    @Test
+    void givenParkingLot_whenFull_thenShouldInformSecurityGuard() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1, owner, guard);
+
+        Object vehicle = new Object();
+        parkingLot.park(vehicle);
+
+        assertEquals(1, guard.spaceIsFullInformed);
+        assertEquals(1, owner.spaceIsFullInformed);
+    }
 }

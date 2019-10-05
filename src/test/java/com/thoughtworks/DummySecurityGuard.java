@@ -1,10 +1,9 @@
 package com.thoughtworks;
 
-public class DummyOwner implements Owner {
+public class DummySecurityGuard implements SecurityGuard {
 
     int spaceIsAvailableAgainInformed = 0;
     int spaceIsFullInformed = 0;
-
 
     @Override
     public void informSpaceIsFull() {
