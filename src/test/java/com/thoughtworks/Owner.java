@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public class Owner implements Observer {
+public class Owner implements Subscriber {
 
     int spaceIsAvailableAgainInformed = 0;
     int spaceIsFullInformed = 0;

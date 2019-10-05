@@ -6,13 +6,11 @@ import java.util.List;
 public class ParkingLot {
     private final int capacity;
     private List<Object> parkedObjects = new ArrayList<>();
-    private Observer owner;
-    private Observer guard;
+    private List<Subscriber> subscribers;
 
-    protected ParkingLot(int capacity, Observer owner, Observer guard) {
+    protected ParkingLot(int capacity, List<Subscriber> subscribers) {
         this.capacity = capacity;
-        this.owner = owner;
-        this.guard = guard;
+        this.subscribers = subscribers;
     }
 
     public void park(Object object) throws SpaceNotAvailableException, AlreadyParkedException {
@@ -24,9 +22,11 @@ public class ParkingLot {
         }
 
         parkedObjects.add(object);
+
         if (parkedObjects.size() == capacity) {
-            owner.informSpaceIsFull();
-            guard.informSpaceIsFull();
+            for (Subscriber subscriber : subscribers) {
+                subscriber.informSpaceIsFull();
+            }
         }
     }
 
@@ -47,9 +47,11 @@ public class ParkingLot {
         }
 
         parkedObjects.remove(object);
+
         if (parkedObjects.size() == capacity - 1) {
-            owner.informSpaceIsAvailableAgain();
-            guard.informSpaceIsAvailableAgain();
+            for (Subscriber subscriber : subscribers) {
+                subscriber.informSpaceIsAvailableAgain();
+            }
         }
         return object;
     }

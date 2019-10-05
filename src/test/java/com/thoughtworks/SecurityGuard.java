@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public class SecurityGuard implements Observer {
+public class SecurityGuard implements Subscriber {
 
     int spaceIsAvailableAgainInformed = 0;
     int spaceIsFullInformed = 0;

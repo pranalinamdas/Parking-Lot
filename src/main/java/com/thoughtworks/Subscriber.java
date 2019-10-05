@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public interface Observer {
+public interface Subscriber {
 
     void informSpaceIsFull();
 
