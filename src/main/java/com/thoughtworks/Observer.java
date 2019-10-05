@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public interface Notification {
+public interface Observer {
 
     void informSpaceIsFull();
 

@@ -14,7 +14,7 @@ class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1, owner, guard);
 
         Object object = new Object();
-        assertDoesNotThrow(()->parkingLot.park(object));
+        assertDoesNotThrow(() -> parkingLot.park(object));
     }
 
     @Test

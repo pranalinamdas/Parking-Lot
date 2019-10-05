@@ -6,10 +6,10 @@ import java.util.List;
 public class ParkingLot {
     private final int capacity;
     private List<Object> parkedObjects = new ArrayList<>();
-    private Owner owner;
-    private SecurityGuard guard;
+    private Observer owner;
+    private Observer guard;
 
-    protected ParkingLot(int capacity, Owner owner, SecurityGuard guard) {
+    protected ParkingLot(int capacity, Observer owner, Observer guard) {
         this.capacity = capacity;
         this.owner = owner;
         this.guard = guard;

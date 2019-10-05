@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public class SecurityGuard implements Notification {
+public class Owner implements Observer {
 
     int spaceIsAvailableAgainInformed = 0;
     int spaceIsFullInformed = 0;
